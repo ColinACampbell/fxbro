@@ -1,0 +1,12 @@
+@import url('./bootflat/css/bootflat.css');
+@import url('./bootstrap/css/bootstrap.css');
+
+body
+{
+    margin: 0;
+}
+
+h1
+{
+    margin: 0;
+}
