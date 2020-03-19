@@ -5,7 +5,7 @@
       <div class="nav-wrapper" v-if="false">
         <Nav />
       </div>
-              <CurrencyPairTrend style="margin:0 auto"/>
+      <CurrencyPairTrend style="margin:0 auto"/>
 
     </div>
   </div>

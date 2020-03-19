@@ -9,6 +9,7 @@ export default class TimeSeries
     getDailyTimeSeries(from,to,func)
     {
         let function_label = func;
+
         func = "FX_"+ func.toUpperCase();
         return new Promise ((resolve,reject)=>{
             this.getData(`https://www.alphavantage.co/query?function=${func}&from_symbol=${from}&to_symbol=${to}&apikey=${config.apiKey}`)
@@ -41,6 +42,18 @@ export default class TimeSeries
             })
         });
         
+    }
+
+    getRealTimeFX(from,to)
+    {
+       return new Promise((resolve,reject)=>{
+           this.getData(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${from}&to_currency=${to}&apikey=${config.apiKey}`)
+           .then(function(data){
+               resolve(data);
+           }).catch((err)=>{
+               reject(err)
+           });
+       })
     }
 
     getData(url)

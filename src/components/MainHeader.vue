@@ -4,7 +4,7 @@
 
       <div class="header">
         <div>
-            <h1 class="title"> FX<span class="bro">Bro</span> </h1>
+            <h1 class="title"> FX<span class="bro">Bro</span> {{ symbol.toUpperCase() }} </h1>
         </div>
       </div>
 
@@ -12,7 +12,20 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  mounted : function()
+  {
+    this.$root.$on('change_symbol',(data)=>{
+      this.symbol = "- " + data;
+    })
+  },
+  data : function()
+  {
+    return {
+      symbol : ''
+    }
+  }
+};
 </script>
 <style scoped>
 

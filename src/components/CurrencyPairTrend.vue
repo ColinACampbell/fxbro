@@ -1,6 +1,11 @@
 <template>
   <div>
     <div>
+      <div id="loader" v-if="loading">
+        <img width="400" src="./../assets/loader.gif" alt="loading-image">
+      </div>
+      <div> 
+      </div>
       <vue-frappe
         id="test"
         :labels="this.labels"
@@ -10,7 +15,22 @@
         :colors="['purple', '#ffa3ef', 'light-blue']"
         :dataSets="this.data"
       v-if="isDataLoaded"></vue-frappe>
-
+      <hr/>
+      <div class="row" title="This is live loaded data">
+        <div class="col-md-3">
+          Last Update :
+        </div>
+        <div class="col-md-3">
+          FX rate : 
+        </div>
+        <div class="col-md-3">
+          Bid :
+        </div>
+        <div class="col-md-3">
+          Ask :
+        </div>
+      </div>
+      <hr/>
       <div class="currency-form">
         <div class="row" style="margin-top:30px;">
           <div class="form-group col-md-6">
@@ -19,16 +39,16 @@
               type="text"
               placeholder="Enter Currency Symbol, eg. EUR, CAD"
               class="form-control col-lg-12"
-              id="inputEmail4"
+              v-model="from_currency"
             />
           </div>
           <div class="form-group col-md-6">
-            <label for="inputPassword4">To Currency</label>
+            <label>To Currency</label>
             <input
               type="text"
               placeholder="Enter Currency Symbol, eg. JPY, USD"
               class="form-control"
-              id="inputPassword4"
+              v-model="to_currency"
             />
           </div>
         </div>
@@ -56,22 +76,49 @@ import TimeSeries from "./../controller/TimeSeries";
 export default {
   methods: {
     search: function() {
+      this.loading = true;
+      
+      //this.isDataLoaded = this.isDataLoaded ? false : true;
+
       let times = new TimeSeries();
-      times.getDailyTimeSeries("JPY", "USD",this.fxFunction).then(result => {
+      if (this.fxFunction === "Select Function ( Time )")
+      {
+        alert("Please selected a function");
+        this.loading = false;
+        return;
+      }
+
+      times.getDailyTimeSeries(this.from_currency, this.to_currency,this.fxFunction).then(result => {
         this.data[0].values = result.values;
         this.labels = result.labels;
+        this.loading = false;
         this.isDataLoaded = true;
-        console.log(this.fxFunction);
       });
+
+      this.$root.$emit("change_symbol",this.from_currency);
+      //this.getRealTimeExchange();
+      //setInterval(this.getRealTimeExchange,1000)
+
+    },
+    getRealTimeExchange : function()
+    {
+      let timeSeries = new TimeSeries();
+      timeSeries.getRealTimeFX(this.from_currency,this.to_currency)
+      .then((data)=>{
+        console.log(data)
+      })
     }
   },
   data() {
     return {
-      fxFunction: '',
+      loading : false,
+      fxFunction: 'Select Function ( Time )',
       isDataLoaded: false,
       labels: [],
       data: [
         {
+          to_currency : "",
+          from_currency : "",
           name: "Details",
           chartType: "line",
           values: []
@@ -81,3 +128,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+  #loader
+  {
+    margin: 0 auto;
+    text-align: center;
+  }
+</style>
