@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "bootflat": "^2.0.4",
@@ -41,5 +42,17 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "description": "## Project setup ``` npm install ```",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColinACampbell/fxbro.git"
+  },
+  "author": "Colin A Campbell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ColinACampbell/fxbro/issues"
+  },
+  "homepage": "https://github.com/ColinACampbell/fxbro#readme"
 }

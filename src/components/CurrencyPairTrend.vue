@@ -15,22 +15,7 @@
         :colors="['purple', '#ffa3ef', 'light-blue']"
         :dataSets="this.data"
       v-if="isDataLoaded"></vue-frappe>
-      <hr/>
-      <div class="row" title="This is live loaded data">
-        <div class="col-md-3">
-          Last Update :
-        </div>
-        <div class="col-md-3">
-          FX rate : 
-        </div>
-        <div class="col-md-3">
-          Bid :
-        </div>
-        <div class="col-md-3">
-          Ask :
-        </div>
-      </div>
-      <hr/>
+      <hr v-if="isDataLoaded"/>
       <div class="currency-form">
         <div class="row" style="margin-top:30px;">
           <div class="form-group col-md-6">
